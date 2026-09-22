@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 group = "org.dynmap"
-version = "1.4-SNAPSHOT"
+version = "1.4-26.3-SNAPSHOT"
 
 def buildTimestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd-HHmm"))
 def timestampedJarName = "${base.archivesName.get()}-${project.version}-${buildTimestamp}.jar"
@@ -30,7 +30,7 @@ dependencies {
         exclude group: "org.bukkit"
         exclude group: "org.spigotmc"
     }
-    compileOnly libs.paper.api
+    compileOnly libs.spigot.api
     compileOnly(libs.worldedit.bukkit) {
         exclude group: "org.bukkit"
         exclude group: "org.spigotmc"

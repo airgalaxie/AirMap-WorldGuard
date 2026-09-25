@@ -39,8 +39,6 @@ dependencies {
         exclude group: "org.bukkit"
         exclude group: "org.spigotmc"
     }
-
-    implementation libs.squirrelid
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -57,13 +55,6 @@ processResources {
 shadowJar {
     archiveClassifier = ""
     archiveVersion = "${project.version}-${buildTimestamp}"
-
-    dependencies {
-        include(dependency("com.sk89q:squirrelid:${libs.versions.squirrelid.get()}"))
-    }
-
-    relocate "com.sk89q.squirrelid", "com.sk89q.worldguard.util.profile"
-    minimize()
 }
 
 jar {

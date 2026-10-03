@@ -11,17 +11,15 @@ version = libs.versions.plugin.get()
 
 layout.buildDirectory.set(file("target"))
 
+def javaTarget = libs.versions.javaTarget.get().toInteger()
+def pluginVersion = libs.versions.plugin.get()
 def buildTimestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd-HHmm"))
-def timestampedJarName = "${base.archivesName.get()}-${project.version}-${buildTimestamp}.jar"
 
 base {
     archivesName = "AirMap-WorldGuard"
 }
 
-java {
-    sourceCompatibility = JavaVersion.toVersion(libs.versions.javaTarget.get())
-    targetCompatibility = JavaVersion.toVersion(libs.versions.javaTarget.get())
-}
+def timestampedJarName = "${base.archivesName.get()}-${pluginVersion}-${buildTimestamp}.jar"
 
 dependencies {
     compileOnly(libs.dynmap.api) {
@@ -45,19 +43,19 @@ dependencies {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = "UTF-8"
-    options.release = libs.versions.javaTarget.get().toInteger()
+    options.release = javaTarget
 }
 
 processResources {
-    inputs.property("version", project.version)
+    inputs.property("version", pluginVersion)
     filesMatching(["plugin.yml", "paper-plugin.yml", "*.txt"]) {
-        expand(project: [version: project.version], version: project.version)
+        expand([version: pluginVersion, project: [version: pluginVersion]])
     }
 }
 
 shadowJar {
     archiveClassifier = ""
-    archiveVersion = "${project.version}-${buildTimestamp}"
+    archiveVersion = "${pluginVersion}-${buildTimestamp}"
 }
 
 jar {
@@ -77,8 +75,10 @@ tasks.register("packageZip", Zip) {
 }
 
 tasks.register("printJavaCompatibility") {
+    def runtimeJava = JavaVersion.current()
+    def targetJava = javaTarget
     doLast {
-        println "Gradle runtime Java: ${JavaVersion.current()}"
-        println "Compiled bytecode target: Java ${libs.versions.javaTarget.get()}"
+        println "Gradle runtime Java: ${runtimeJava}"
+        println "Compiled bytecode target: Java ${targetJava}"
     }
 }

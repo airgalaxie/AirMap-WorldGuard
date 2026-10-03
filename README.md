@@ -56,12 +56,13 @@ The included Gradle wrapper builds the plugin:
 ./gradlew build
 ```
 
-Output is written to `target/`:
+Output is written to `target/`: jars land in `target/libs/`, the package zip in
+`target/distributions/`.
 
 | Task | Output |
 | --- | --- |
 | `./gradlew shadowJar` | `target/libs/AirMap-WorldGuard-<version>-<timestamp>.jar`, the jar to deploy |
-| `./gradlew packageZip` | `target/libs/AirMap-WorldGuard-<version>-<timestamp>-bin.zip` |
+| `./gradlew packageZip` | `target/distributions/AirMap-WorldGuard-<version>-bin.zip`, containing the timestamped jar |
 | `./gradlew compileJava` | compiled classes only |
 | `./gradlew printJavaCompatibility` | prints the Gradle runtime Java and the compiled bytecode level |
 

@@ -19,18 +19,23 @@ official Dynmap release.
 Compatibility
 -------------
 
-| Component | Version |
+| Component | Version used at build time |
 | --- | --- |
-| Java bytecode target | 25 |
+| Java bytecode target | 25 (fixed by the build, newer JDKs are fine) |
 | Gradle wrapper | 9.8.0 |
 | Server API | Spigot/Paper API 26.3-R0.1-SNAPSHOT |
-| dynmap API | 3.8 (`dynmap-api` + `DynmapCoreAPI`) |
+| dynmap marker API | 3.8 (`dynmap-api` + `DynmapCoreAPI`) |
 | WorldEdit Bukkit | 7.4.5 |
 | WorldGuard Bukkit | 7.0.19 |
-| Shadow plugin | 9.6.1 |
+| Shadow plugin | 9.6.1 (build-time only) |
 
-The build must be run with a JDK that can target Java 25. A newer JDK, such as
-JDK 26, can also run the build.
+These are the versions the plugin is compiled against, not an upper bound.
+Newer dynmap, Paper, WorldEdit and WorldGuard releases are expected to keep
+working, and support for JDK 26, 27 and 28 is planned.
+
+The compiled bytecode level is Java 25. The build itself runs on any JDK that
+can target Java 25, so newer JDKs such as 28 should work as well; `./gradlew
+printJavaCompatibility` prints the runtime and target levels.
 
 Building
 --------
@@ -70,7 +75,7 @@ Project layout
 Runtime Dependencies
 --------------------
 
-Install this plugin on a Paper v26.x server with dynmap and WorldGuard present.
+Install this plugin on a Paper server with dynmap and WorldGuard present.
 The Paper plugin metadata declares both as required server dependencies.
 
 The plugin looks up the map plugin by the name `dynmap`, uses the marker set id

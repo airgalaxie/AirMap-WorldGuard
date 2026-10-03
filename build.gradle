@@ -6,14 +6,14 @@ plugins {
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-group = "org.dynmap"
+group = "org.airmap"
 version = "1.4-26.3-SNAPSHOT"
 
 def buildTimestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd-HHmm"))
 def timestampedJarName = "${base.archivesName.get()}-${project.version}-${buildTimestamp}.jar"
 
 base {
-    archivesName = "Dynmap-WorldGuard"
+    archivesName = "AirMap-WorldGuard"
 }
 
 java {

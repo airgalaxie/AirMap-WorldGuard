@@ -1,5 +1,5 @@
-name: Dynmap-WorldGuard
-main: org.dynmap.worldguard.DynmapWorldGuardPlugin
+name: AirMap-WorldGuard
+main: org.airmap.worldguard.AirMapWorldGuardPlugin
 version: "${project.version}"
 description: WorldGuard region overlay support for dynmap
 authors:

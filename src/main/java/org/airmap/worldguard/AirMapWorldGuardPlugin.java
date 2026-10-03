@@ -1,4 +1,4 @@
-package org.dynmap.worldguard;
+package org.airmap.worldguard;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionType;
 import com.sk89q.worldguard.util.profile.cache.ProfileCache;
 
-public class DynmapWorldGuardPlugin extends JavaPlugin {
+public class AirMapWorldGuardPlugin extends JavaPlugin {
     private static Logger log;
     private static final String DEF_INFOWINDOW = "<div class=\"infowindow\"><span style=\"font-size:120%;\">%regionname%</span><br /> Owner <span style=\"font-weight:bold;\">%playerowners%</span><br />Flags<br /><span style=\"font-weight:bold;\">%flags%</span></div>";
     public static final String BOOST_FLAG = "dynmap-boost";
@@ -318,7 +318,7 @@ public class DynmapWorldGuardPlugin extends JavaPlugin {
                     /* And replace with new map */
                     resareas = newmap;
                     // Set up for next update (new job)
-                    getServer().getScheduler().scheduleSyncDelayedTask(DynmapWorldGuardPlugin.this, new UpdateJob(), updperiod);
+                    getServer().getScheduler().scheduleSyncDelayedTask(AirMapWorldGuardPlugin.this, new UpdateJob(), updperiod);
                     return;
                 }
                 else {
@@ -351,7 +351,7 @@ public class DynmapWorldGuardPlugin extends JavaPlugin {
                 handleRegion(curworld, pr, newmap);
             }
             // Tick next step in the job
-            getServer().getScheduler().scheduleSyncDelayedTask(DynmapWorldGuardPlugin.this, this, 1);
+            getServer().getScheduler().scheduleSyncDelayedTask(AirMapWorldGuardPlugin.this, this, 1);
         }
     }
 

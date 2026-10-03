@@ -32,4 +32,4 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Dynmap-WorldGuard"
+rootProject.name = "AirMap-WorldGuard"

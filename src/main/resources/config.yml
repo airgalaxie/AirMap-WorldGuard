@@ -1,4 +1,5 @@
-# Dynmap-WorldGuard configuration
+# AirMap-WorldGuard configuration
+# Based on Dynmap-WorldGuard by mikeprimm
 #
 update:
   # Seconds between checks for Residence updates

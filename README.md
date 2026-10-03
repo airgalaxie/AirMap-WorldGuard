@@ -46,7 +46,7 @@ Use the included Gradle wrapper:
 ./gradlew build
 ```
 
-The plugin jar is produced by the Shadow plugin under `build/libs/`.
+The plugin jar is produced by the Shadow plugin under `target/libs/`.
 
 Useful build tasks:
 
@@ -63,8 +63,8 @@ Project layout
 | Path | Purpose |
 | --- | --- |
 | `settings.gradle` | Project name `AirMap-WorldGuard`, plugin and dependency repositories |
-| `build.gradle` | Java 25 target, compile-only dependencies, Shadow jar and zip packaging |
-| `gradle/libs.versions.toml` | Version catalog for all dependencies and the Shadow plugin |
+| `build.gradle` | Java 25 target, compile-only dependencies, output directory `target/`, Shadow jar and zip packaging |
+| `gradle/libs.versions.toml` | Version catalog: plugin version, all dependencies and the Shadow plugin |
 | `src/main/java/org/airmap/worldguard/AirMapWorldGuardPlugin.java` | Plugin entry point |
 | `src/main/resources/paper-plugin.yml` | Paper plugin metadata (preferred descriptor) |
 | `src/main/resources/plugin.yml` | Legacy Bukkit descriptor, kept as fallback for non-Paper servers |

@@ -7,7 +7,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 group = "org.airmap"
-version = "1.5-26.3"
+version = libs.versions.plugin.get()
+
+layout.buildDirectory.set(file("target"))
 
 def buildTimestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd-HHmm"))
 def timestampedJarName = "${base.archivesName.get()}-${project.version}-${buildTimestamp}.jar"

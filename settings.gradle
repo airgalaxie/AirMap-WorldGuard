@@ -12,6 +12,8 @@ dependencyResolutionManagement {
             name = "papermc"
             url = uri("https://repo.papermc.io/repository/maven-public/")
         }
+        // Dynmap API 3.8 is only published here; it is the marker API this
+        // plugin compiles against and the only map plugin supported at runtime.
         maven {
             name = "dynmap-repo"
             url = uri("https://repo.mikeprimm.com/")

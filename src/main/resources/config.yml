@@ -2,7 +2,7 @@
 # Based on Dynmap-WorldGuard by mikeprimm
 #
 update:
-  # Seconds between checks for Residence updates
+  # Seconds between checks for WorldGuard region updates
   period: 300
 
 layer:

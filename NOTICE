@@ -1,0 +1,12 @@
+AirMap-WorldGuard
+Copyright 2026 the AirMap-WorldGuard contributors
+
+This product includes software developed by third parties:
+
+- Dynmap-WorldGuard, the original plugin, written by mikeprimm.
+  AirMap-WorldGuard is a fork of it and keeps its region and marker handling.
+- Dynmap, which provides the marker API this plugin builds on. Dynmap is the
+  original web map project by mikeprimm. AirMap is not supported and is not
+  affiliated with this project.
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).

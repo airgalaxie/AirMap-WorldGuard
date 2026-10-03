@@ -3,9 +3,14 @@ AirMap-WorldGuard
 
 AirMap-WorldGuard adds WorldGuard region overlay support to dynmap.
 
-This is a maintained fork of [Dynmap-WorldGuard](https://github.com/airgalaxie/Dynmap-WorldGuard)
-by mikeprimm. It targets Paper v26.x and builds with Gradle instead of the Maven
+This is a maintained fork of
+[Dynmap-WorldGuard](https://github.com/mikeprimm/Dynmap-WorldGuard) by
+mikeprimm. It targets Paper v26.x and builds with Gradle instead of the Maven
 build used on the upstream master branch.
+
+This plugin is built against the dynmap marker API 3.8 and detects dynmap as
+the map plugin by name. [AirMap](https://github.com/airgalaxie/AirMap) is not
+supported and is not affiliated with this project.
 
 Compatibility
 -------------
@@ -55,6 +60,8 @@ Project layout
 | `src/main/resources/paper-plugin.yml` | Paper plugin metadata (preferred descriptor) |
 | `src/main/resources/plugin.yml` | Legacy Bukkit descriptor, kept as fallback for non-Paper servers |
 | `src/main/resources/config.yml` | Default configuration |
+| `LICENSE` | Apache License 2.0 |
+| `NOTICE` | Attribution for the upstream project and dynmap |
 
 Runtime Dependencies
 --------------------
@@ -62,13 +69,12 @@ Runtime Dependencies
 Install this plugin on a Paper v26.x server with dynmap and WorldGuard present.
 The Paper plugin metadata declares both as required server dependencies.
 
-Both plugin descriptors are shipped in the jar; Paper prefers
-`paper-plugin.yml`. The plugin registers the WorldGuard boolean flag
-`dynmap-boost` and uses the marker set id `worldguard.markerset`, both kept
-identical to upstream so existing regions and marker sets keep working. Because
-the plugin name changed to `AirMap-WorldGuard`, the server keeps its
-configuration in `plugins/AirMap-WorldGuard/config.yml`; copy an existing
-`plugins/Dynmap-WorldGuard/config.yml` over on first start.
+The plugin looks up the map plugin by the name `dynmap`, uses the marker set id
+`worldguard.markerset` and registers the WorldGuard boolean flag `dynmap-boost`;
+all three are kept identical to upstream so existing marker sets and region
+flags keep working. Because the plugin name changed to `AirMap-WorldGuard`, the
+server keeps its configuration in `plugins/AirMap-WorldGuard/config.yml`; copy
+an existing `plugins/Dynmap-WorldGuard/config.yml` over on first start.
 
 Changes compared to upstream master
 -----------------------------------
@@ -87,3 +93,11 @@ Changes compared to upstream master
 - Updated dynmap API from `3.3-SNAPSHOT` to `3.8`.
 - WorldEdit Bukkit `7.4.5`, WorldGuard Bukkit `7.0.19`.
 - Removed bStats usage and the bStats shaded dependency from the plugin.
+- Added the Apache License 2.0 and a `NOTICE` file.
+
+License
+-------
+
+Licensed under the Apache License, Version 2.0. See `LICENSE` and `NOTICE`.
+
+Thanks to mikeprimm for the original Dynmap-WorldGuard plugin and for dynmap.

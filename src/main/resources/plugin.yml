@@ -3,5 +3,5 @@ main: org.airmap.worldguard.AirMapWorldGuardPlugin
 version: "${project.version}"
 author: mikeprimm
 depend: [ dynmap, WorldGuard ]
-api-version: 1.13
+api-version: "26.3"
 

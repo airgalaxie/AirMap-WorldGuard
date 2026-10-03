@@ -6,7 +6,10 @@ This product includes software developed by third parties:
 - Dynmap-WorldGuard, the original plugin, written by mikeprimm.
   AirMap-WorldGuard is a fork of it and keeps its region and marker handling.
 - Dynmap, which provides the marker API this plugin builds on. Dynmap is the
-  original web map project by mikeprimm. AirMap is not supported and is not
-  affiliated with this project.
+  original web map project by mikeprimm.
+- AirMap (https://github.com/airgalaxie/AirMap), which implements the same
+  marker API 3.8 and provides itself under the name `dynmap`; this plugin
+  supports it through that alias. AirMap is an independent project and is
+  neither supported nor endorsed by the Dynmap project.
 
 Licensed under the Apache License, Version 2.0 (see LICENSE).

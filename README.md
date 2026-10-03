@@ -8,9 +8,13 @@ This is a maintained fork of
 mikeprimm. It targets Paper v26.x and builds with Gradle instead of the Maven
 build used on the upstream master branch.
 
-This plugin is built against the dynmap marker API 3.8 and detects dynmap as
-the map plugin by name. [AirMap](https://github.com/airgalaxie/AirMap) is not
-supported and is not affiliated with this project.
+This plugin is built against the dynmap marker API 3.8 and detects the map
+plugin by the name `dynmap`.
+[AirMap](https://github.com/airgalaxie/AirMap) works as well: it provides
+itself under the name `dynmap` and implements the same marker API 3.8, so it is
+picked up without any special handling and is never queried under its own name.
+The Dynmap project itself does not support AirMap, and AirMap is not an
+official Dynmap release.
 
 Compatibility
 -------------

@@ -1,5 +1,5 @@
 [versions]
-plugin = "1.5-26.3"
+plugin = "1.6-26.3"
 javaTarget = "25"
 dynmap = "3.8"
 spigot = "26.3-R0.1-SNAPSHOT"

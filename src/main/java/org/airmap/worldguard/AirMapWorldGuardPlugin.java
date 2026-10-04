@@ -64,6 +64,7 @@ public class AirMapWorldGuardPlugin extends JavaPlugin {
     Set<String> visible;
     Set<String> hidden;
     boolean stop; 
+    long updateGeneration;
     int maxdepth;
 
     @Override
@@ -246,10 +247,10 @@ public class AirMapWorldGuardPlugin extends JavaPlugin {
                 /* Make outline */
                 x = new double[4];
                 z = new double[4];
-                x[0] = l0.getX(); z[0] = l0.getZ();
-                x[1] = l0.getX(); z[1] = l1.getZ()+1.0;
-                x[2] = l1.getX() + 1.0; z[2] = l1.getZ()+1.0;
-                x[3] = l1.getX() + 1.0; z[3] = l0.getZ();
+                x[0] = l0.x(); z[0] = l0.z();
+                x[1] = l0.x(); z[1] = l1.z()+1.0;
+                x[2] = l1.x() + 1.0; z[2] = l1.z()+1.0;
+                x[3] = l1.x() + 1.0; z[3] = l0.z();
             }
             else if(tn == RegionType.POLYGON) {
                 ProtectedPolygonalRegion ppr = (ProtectedPolygonalRegion)region;
@@ -258,7 +259,7 @@ public class AirMapWorldGuardPlugin extends JavaPlugin {
                 z = new double[points.size()];
                 for(int i = 0; i < points.size(); i++) {
                     BlockVector2 pt = points.get(i);
-                    x[i] = pt.getX(); z[i] = pt.getZ();
+                    x[i] = pt.x(); z[i] = pt.z();
                 }
             }
             else {  /* Unsupported type */
@@ -276,7 +277,7 @@ public class AirMapWorldGuardPlugin extends JavaPlugin {
                 m.setLabel(name);   /* Update label */
             }
             if(use3d) { /* If 3D? */
-                m.setRangeY(l1.getY()+1.0, l0.getY());
+                m.setRangeY(l1.y()+1.0, l0.y());
             }            
             /* Set line and fill properties */
             addStyle(id, world.getName(), m, region);
@@ -292,13 +293,18 @@ public class AirMapWorldGuardPlugin extends JavaPlugin {
     }
     
     private class UpdateJob implements Runnable {
+        final long generation;
         Map<String,AreaMarker> newmap = new HashMap<String,AreaMarker>(); /* Build new map */
         List<World> worldsToDo = null;
         List<ProtectedRegion> regionsToDo = null;
         World curworld = null;
+
+        UpdateJob(long generation) {
+            this.generation = generation;
+        }
         
         public void run() {
-            if (stop) {
+            if (stop || generation != updateGeneration) {
                 return;
             }
             // If worlds list isn't primed, prime it
@@ -318,7 +324,7 @@ public class AirMapWorldGuardPlugin extends JavaPlugin {
                     /* And replace with new map */
                     resareas = newmap;
                     // Set up for next update (new job)
-                    getServer().getScheduler().scheduleSyncDelayedTask(AirMapWorldGuardPlugin.this, new UpdateJob(), updperiod);
+                    getServer().getScheduler().scheduleSyncDelayedTask(AirMapWorldGuardPlugin.this, new UpdateJob(generation), updperiod);
                     return;
                 }
                 else {
@@ -360,7 +366,7 @@ public class AirMapWorldGuardPlugin extends JavaPlugin {
         public void onPluginEnable(PluginEnableEvent event) {
             Plugin p = event.getPlugin();
             String name = p.getDescription().getName();
-            if(name.equals("dynmap")) {
+            if(p == dynmap) {
                 Plugin wg = p.getServer().getPluginManager().getPlugin("WorldGuard");
                 if(wg != null && wg.isEnabled())
                     activate();
@@ -395,10 +401,17 @@ public class AirMapWorldGuardPlugin extends JavaPlugin {
     }
     
     private void registerCustomFlags() {
+        FlagRegistry fr = WorldGuard.getInstance().getFlagRegistry();
+        Flag<?> existing = fr.get(BOOST_FLAG);
+        if (existing != null) {
+            if (existing instanceof BooleanFlag) {
+                boost_flag = (BooleanFlag) existing;
+            }
+            return;
+        }
         try {
             BooleanFlag bf = new BooleanFlag(BOOST_FLAG);
-            FlagRegistry fr = WorldGuard.getInstance().getFlagRegistry();
-        	fr.register(bf);
+            fr.register(bf);
             boost_flag = bf;
         } catch (Exception x) {
         	log.info("Error registering flag - " + x.getMessage());
@@ -446,7 +459,7 @@ public class AirMapWorldGuardPlugin extends JavaPlugin {
         use3d = cfg.getBoolean("use3dregions", false);
         infowindow = cfg.getString("infowindow", DEF_INFOWINDOW);
         maxdepth = cfg.getInt("maxdepth", 16);
-        updatesPerTick = cfg.getInt("updates-per-tick", 20);
+        updatesPerTick = Math.max(1, cfg.getInt("updates-per-tick", 20));
 
         /* Get style information */
         defstyle = new AreaStyle(cfg, "regionstyle");
@@ -486,19 +499,21 @@ public class AirMapWorldGuardPlugin extends JavaPlugin {
         if(per < 15) per = 15;
         updperiod = (long)(per*20);
         stop = false;
+        long generation = ++updateGeneration;
         
-        getServer().getScheduler().scheduleSyncDelayedTask(this, new UpdateJob(), 40);   /* First time is 2 seconds */
+        getServer().getScheduler().scheduleSyncDelayedTask(this, new UpdateJob(generation), 40);   /* First time is 2 seconds */
         
         info("version " + this.getDescription().getVersion() + " is activated");
     }
 
     public void onDisable() {
+        stop = true;
+        updateGeneration++;
         if(set != null) {
             set.deleteMarkerSet();
             set = null;
         }
         resareas.clear();
-        stop = true;
     }
 
 }

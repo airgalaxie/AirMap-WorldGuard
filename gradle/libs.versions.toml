@@ -4,7 +4,7 @@ javaTarget = "25"
 dynmap = "3.8"
 spigot = "26.3-R0.1-SNAPSHOT"
 worldedit = "7.4.5"
-worldguard = "7.0.19"
+worldguard = "7.0.21"
 shadow = "9.6.1"
 
 [libraries]
